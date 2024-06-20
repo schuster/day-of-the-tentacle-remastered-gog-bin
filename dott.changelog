@@ -1,0 +1,8 @@
+2024-06-20 | dreieck (https://aur.archlinux.org/account/dreieck)
+
+  * Based on `dott` by `@enricostn` created the package named `day-of-the-tentacle-remastered-gog-bin`, which actually downloads from your own GOG account.
+
+2016-12-28 | enricostn https://aur.archlinux.org/account/enricostn
+
+  * dott-20161228-1:
+    - Inital Release
