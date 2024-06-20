@@ -11,13 +11,13 @@ pkgname=(
 _pkgver_game="1.4.1"
 _pkgver_gog="2.1.0.2"
 pkgver=1.4.1+gog2.1.0.2
-pkgrel=3
+pkgrel=4
 epoch=1
 arch=(
   'i686'
   'x86_64'
 )
-pkgdesc="Day of the Tentacle Remastered, plus original game of Maniac Mansion. You need a GOG account and have purchased the file through GOG; PKGBUILD might ask you for GOG login."
+pkgdesc="Day of the Tentacle Remastered, plus Maniac Mansion (release 3 from 1989). You need a GOG account and have purchased the file through GOG; PKGBUILD might ask you for GOG login."
 url="https://www.doublefine.com/games/day-of-the-tentacle-remastered"
 license=(
   'LicenseRef-Proprietary'
@@ -50,7 +50,7 @@ sha256sums=(
   '7a6cf4eee9695250bd38754bc93f3ddecc0ce69dcfb149d750ec1d162dfa1d30'  # Maniac_Mansion_Icon.png
   'f3f6ce50a0dabaa344b66d7c70c828714a45944f2043170530b0cba715328d0d'  # dott.desktop
   'b3cc9cfcc82ac701a9a543c4b8d351786b0c8e24c38386d762a9ad6ffa167cb4'  # dott.changelog
-  '15f5a519f01e78a6a6d3777e15d6190d7665bfea15a9569a1a5a7831c68753af'  # maniac-mansion.desktop
+  '54e01410d29c2ed264837f92acbc16173b4bd1987697ddc74c1be6221b9a3c4a'  # maniac-mansion.desktop
   'c75b0fc50592bf1bccbd9556efdd52894c08ffde633d35e6f2f1dfc50ce1b55e'  # license-note-proprietary.txt
 )
 
@@ -169,7 +169,7 @@ package_day-of-the-tentacle-remastered-bin() {
 }
 
 package_maniac-mansion-original-data-bin() {
-  pkgdesc="Data files of the original game 'Maniac Mansion'. To be played with ScummVM."
+  pkgdesc="Data files of original 'Maniac Mansion', release 3 from 1989. To be played with ScummVM."
   arch=('any')
   optdepends=(
     "maniac-mansion: To run the game via '/usr/bin/maniac-mansion'."
