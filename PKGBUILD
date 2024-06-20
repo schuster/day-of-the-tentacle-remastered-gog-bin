@@ -6,7 +6,7 @@ pkgname="day-of-the-tentacle-remastered-gog-bin"
 _pkgver_game="1.4.1"
 _pkgver_gog="2.1.0.2"
 pkgver=1.4.1+gog2.1.0.2
-pkgrel=1
+pkgrel=2
 epoch=
 pkgdesc="Day of the Tentacle Remastered. You need a GOG account and have purchased the file through GOG."
 arch=(
@@ -33,7 +33,7 @@ depends_x86_64=(
   'lib32-mesa-libgl'
 )
 makedepends=(
-  # 'gogextract'
+  'gogextract'
   'lgogdownloader'
   'optipng'
   # 'wyvern'
