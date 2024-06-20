@@ -2,8 +2,8 @@
 Encoding=UTF-8
 Value=1.0
 Type=Application
-Name=Dott
+Name=Day of the Tentacle Remastered
 Comment=Day of the Tentacle, Remastered edition of the 1993 classic adventure game
 Exec=dott
-Categories=Game;
-Path=/opt/dott
+Categories=Game;AdventureGame
+Path=/usr/lib/dott

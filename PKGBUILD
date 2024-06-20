@@ -2,17 +2,22 @@
 # Contributpr: enricostn (https://aur.archlinux.org/account/enricostn)
 
 _gogname="day_of_the_tentacle_remastered"
-pkgname="day-of-the-tentacle-remastered-gog-bin"
+pkgbase="day-of-the-tentacle-remastered-gog-bin"
+pkgname=(
+  "day-of-the-tentacle-remastered-bin"
+  "maniac-mansion-original-data-bin"
+  "maniac-mansion-original"
+)
 _pkgver_game="1.4.1"
 _pkgver_gog="2.1.0.2"
 pkgver=1.4.1+gog2.1.0.2
-pkgrel=2
-epoch=
-pkgdesc="Day of the Tentacle Remastered. You need a GOG account and have purchased the file through GOG; PKGBUILD might ask you for GOG login."
+pkgrel=3
+epoch=1
 arch=(
   'i686'
   'x86_64'
 )
+pkgdesc="Day of the Tentacle Remastered, plus original game of Maniac Mansion. You need a GOG account and have purchased the file through GOG; PKGBUILD might ask you for GOG login."
 url="https://www.doublefine.com/games/day-of-the-tentacle-remastered"
 license=(
   'LicenseRef-Proprietary'
@@ -22,49 +27,30 @@ license=(
   'GPL-3.0-or-later'
 )
 groups=('games')
-depends=()
-depends_i686=(
-  'alsa-lib'
-  'mesa-libgl'
-)
-depends_x86_64=(
-  'lib32-alsa-lib'
-  'lib32-libudev0-shim'
-  'lib32-mesa-libgl'
-)
 makedepends=(
   'gogextract'
   'lgogdownloader'
   'optipng'
+  'untangle' # To extract Maniac Mansion as standalone game
   # 'wyvern'
 )
 checkdepends=()
-optdepends=()
-provides=(
-  "dott=20161228"  # Originally, this package was named 'dott', version 20161228.
-  "day-of-the-tentacle-remastered=${pkgver}"
-  "day-of-the-tentacle"
-  "maniac-mansion"
-)
-conflicts=(
-  "dott"
-  "day-of-the-tentacle-remastered"
-  "day-of-the-tentacle"
-)
-replaces=(
-  "dott<=20161228"  # Originally, this package was named 'dott', version 20161228.
-)
-backup=()
 changelog="dott.changelog"
 _archivename="gog_day_of_the_tentacle_remastered_${_pkgver_gog}.sh"
 source=(
+  "maniac-mansion.sh"
+  "Maniac_Mansion_Icon.png::https://www.classicgaming.cc/pc/maniac-mansion/images/icons/icon-maniac-mansion-logo-128x128.png"
   "dott.desktop"
   "dott.changelog"
+  "maniac-mansion.desktop"
   "license-note-proprietary.txt"
 )
 sha256sums=(
-  '886f3824168f3611d47d984699b0b72e3d7daa2ccf99aa3a367de74205e4fc6f'  # dott.desktop
+  '387d1bdd548a3beb142216b8ae60144102275666238edf07c183999003a865ac'  # maniac-mansion.sh
+  '7a6cf4eee9695250bd38754bc93f3ddecc0ce69dcfb149d750ec1d162dfa1d30'  # Maniac_Mansion_Icon.png
+  'f3f6ce50a0dabaa344b66d7c70c828714a45944f2043170530b0cba715328d0d'  # dott.desktop
   'b3cc9cfcc82ac701a9a543c4b8d351786b0c8e24c38386d762a9ad6ffa167cb4'  # dott.changelog
+  '15f5a519f01e78a6a6d3777e15d6190d7665bfea15a9569a1a5a7831c68753af'  # maniac-mansion.desktop
   'c75b0fc50592bf1bccbd9556efdd52894c08ffde633d35e6f2f1dfc50ce1b55e'  # license-note-proprietary.txt
 )
 
@@ -98,6 +84,9 @@ prepare() {
   if [ -e "unpack" ]; then
     rm -Rf "unpack"
   fi
+  if [ -e "maniac-mansion" ]; then
+    rm -Rf "maniac-mansion"
+  fi
 
   msg2 "Downloading GOG game '${_gogname}' ..."
   _download_game "${_gogname}" "${SRCDEST}"
@@ -107,6 +96,11 @@ prepare() {
 
   msg2 "Extracting game data ..."
   gogextract -g "${srcdir}/unpack" "${srcdir}/${_gogname}/${_archivename}"
+
+  msg2 "Extracting Maniac Mansion ..."
+  mkdir -p maniac-mansion
+  cd maniac-mansion
+  untangle -x -F 'maniac/*' "${srcdir}/unpack/game"/tenta.cle
 }
 
 pkgver() {
@@ -120,9 +114,44 @@ pkgver() {
 build() {
   msg2 "Size-optimising 'icon.png' ..."
   optipng -o9 "${srcdir}/unpack/support/icon.png"
+  msg2 "Size-optimising 'Maniac_Mansion_Icon.png' ..."
+  optipng -o9 -clobber --out "${srcdir}/maniac-mansion.png" "${srcdir}/Maniac_Mansion_Icon.png"
 }
 
-package() {
+package_day-of-the-tentacle-remastered-bin() {
+  pkgdesc="Day of the Tentacle Remastered. You need a GOG account and have purchased the file through GOG; PKGBUILD might ask you for GOG login."
+  arch=(
+    'i686'
+    'x86_64'
+  )
+  depends=()
+  depends_i686=(
+    'alsa-lib'
+    'mesa-libgl'
+  )
+  depends_x86_64=(
+    'lib32-alsa-lib'
+    'lib32-libudev0-shim'
+    'lib32-mesa-libgl'
+  )
+  provides=(
+    "dott=20161228"  # Originally, this package was named 'dott', version 20161228.
+    "day-of-the-tentacle-remastered-gog-bin=${pkgver}"
+    "day-of-the-tentacle-remastered=${pkgver}"
+    "day-of-the-tentacle"
+    "maniac-mansion"
+  )
+  conflicts=(
+    "dott"
+    "day-of-the-tentacle-remastered-gog-bin"
+    "day-of-the-tentacle-remastered"
+    "day-of-the-tentacle"
+  )
+  replaces=(
+    "day-of-the-tentacle-remastered-gog-bin=1.4.1+gog2.1.0.2"  # Since we made a split package, we now name the actual package not anymore with `-gog`, only the package base. Since GOG specifities are only relevant for source download and extraction, not for installation.
+    "dott<=20161228"  # Originally, this package was named 'dott', version 20161228.
+  )
+
   install -Dvm755 -t "${pkgdir}/usr/lib/dott"     "${srcdir}/unpack/game/Dott"
   install -Dvm644 -t "${pkgdir}/usr/lib/dott"     "${srcdir}/unpack/game"/{tenta.cle,controllerdef.txt}
   install -Dvm755 -t "${pkgdir}/usr/lib/dott/lib" "${srcdir}/unpack/game/lib"/*
@@ -136,5 +165,44 @@ package() {
   install -Dvm644 -t "${pkgdir}/usr/share/doc/dott" "${srcdir}/${_gogname}"/{game-details.json,product.json,logo.jpg} "${srcdir}/unpack"/{gameinfo,docs/installer_readme.txt,support/support_notice.txt,game/readme.txt}
   install -Dvm644  "${srcdir}/unpack/docs/End User License Agreement.txt"  "${pkgdir}/usr/share/licenses/${pkgname}/Tools_End_User_License_Agreements.txt"
   install -Dvm644  "${srcdir}/license-note-proprietary.txt"                "${pkgdir}/usr/share/licenses/${pkgname}/license-note-proprietary.txt"
-  ln -svr          "${pkgdir}/usr/share/licenses/${pkgname}"/*             "${pkgdir}/usr/share/doc"/
+  ln -svr          "${pkgdir}/usr/share/licenses/${pkgname}"/*             "${pkgdir}/usr/share/doc/dott"/
+}
+
+package_maniac-mansion-original-data-bin() {
+  pkgdesc="Data files of the original game 'Maniac Mansion'. To be played with ScummVM."
+  arch=('any')
+  optdepends=(
+    "maniac-mansion: To run the game via '/usr/bin/maniac-mansion'."
+    'scummvm: To run the game manually with ScummVM.'
+  )
+  provides=(
+    "maniac-mansion-data"
+  )
+  conflicts=(
+    "maniac-mansion-data"
+  )
+
+  install -Dvm644 -t "${pkgdir}/usr/lib/maniac-mansion" "${srcdir}/maniac-mansion/maniac"/*
+  install -Dvm644  "${srcdir}/maniac-mansion.png"            "${pkgdir}/usr/share/pixmaps/maniac-mansion.png"
+  install -Dvm644  "${srcdir}/license-note-proprietary.txt"  "${pkgdir}/usr/share/licenses/${pkgname}/license-note-proprietary.txt"
+}
+
+package_maniac-mansion-original() {
+  pkgdesc="Standalone ScummVM based launcher script for the original game 'Maniac Mansion'."
+  arch=('any')
+  license=("GPL-3.0-or-later")
+  depends=(
+    "maniac-mansion-data"
+    "scummvm"
+    "sh"
+  )
+  provides=(
+    "maniac-mansion"
+  )
+  conflicts=(
+    "maniac-mension"
+  )
+
+  install -Dvm755 "${srcdir}/maniac-mansion.sh"  "${pkgdir}/usr/bin/maniac-mansion"
+  install -Dvm644 -t "${pkgdir}/usr/share/applications" "${srcdir}/maniac-mansion.desktop"
 }
