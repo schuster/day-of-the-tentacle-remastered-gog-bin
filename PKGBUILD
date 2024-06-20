@@ -8,7 +8,7 @@ _pkgver_gog="2.1.0.2"
 pkgver=1.4.1+gog2.1.0.2
 pkgrel=2
 epoch=
-pkgdesc="Day of the Tentacle Remastered. You need a GOG account and have purchased the file through GOG."
+pkgdesc="Day of the Tentacle Remastered. You need a GOG account and have purchased the file through GOG; PKGBUILD might ask you for GOG login."
 arch=(
   'i686'
   'x86_64'
