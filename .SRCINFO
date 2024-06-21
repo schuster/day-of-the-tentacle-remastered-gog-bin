@@ -1,7 +1,7 @@
 pkgbase = day-of-the-tentacle-remastered-gog-bin
-	pkgdesc = Day of the Tentacle Remastered, plus Maniac Mansion (release 3 from 1989). You need a GOG account and have purchased the file through GOG; PKGBUILD might ask you for GOG login.
+	pkgdesc = Day of the Tentacle Remastered. You need a GOG account and have purchased the file through GOG; PKGBUILD might ask you for GOG login.
 	pkgver = 1.4.1+gog2.1.0.2
-	pkgrel = 6
+	pkgrel = 7
 	epoch = 1
 	url = https://www.doublefine.com/games/day-of-the-tentacle-remastered
 	changelog = dott.changelog
@@ -16,18 +16,11 @@ pkgbase = day-of-the-tentacle-remastered-gog-bin
 	makedepends = gogextract
 	makedepends = lgogdownloader
 	makedepends = optipng
-	makedepends = untangle
-	source = maniac-mansion.sh
-	source = Maniac_Mansion_Icon.png::https://www.classicgaming.cc/pc/maniac-mansion/images/icons/icon-maniac-mansion-logo-128x128.png
 	source = dott.desktop
 	source = dott.changelog
-	source = maniac-mansion.desktop
 	source = license-note-proprietary.txt
-	sha256sums = 387d1bdd548a3beb142216b8ae60144102275666238edf07c183999003a865ac
-	sha256sums = 7a6cf4eee9695250bd38754bc93f3ddecc0ce69dcfb149d750ec1d162dfa1d30
 	sha256sums = f3f6ce50a0dabaa344b66d7c70c828714a45944f2043170530b0cba715328d0d
 	sha256sums = b3cc9cfcc82ac701a9a543c4b8d351786b0c8e24c38386d762a9ad6ffa167cb4
-	sha256sums = 54e01410d29c2ed264837f92acbc16173b4bd1987697ddc74c1be6221b9a3c4a
 	sha256sums = c75b0fc50592bf1bccbd9556efdd52894c08ffde633d35e6f2f1dfc50ce1b55e
 
 pkgname = day-of-the-tentacle-remastered-bin
@@ -50,26 +43,3 @@ pkgname = day-of-the-tentacle-remastered-bin
 	depends_x86_64 = lib32-alsa-lib
 	depends_x86_64 = lib32-libudev0-shim
 	depends_x86_64 = lib32-mesa-libgl
-
-pkgname = maniac-mansion-data-bin
-	pkgdesc = Data files of 'Maniac Mansion', release 3 from 1989. To be played with ScummVM.
-	arch = any
-	optdepends = maniac-mansion: To run the game via '/usr/bin/maniac-mansion'.
-	optdepends = scummvm: To run the game manually with ScummVM.
-	provides = maniac-mansion-data=v2
-	provides = maniac-mansion-data=release3
-	conflicts = maniac-mansion-data
-	conflicts = maniac-mansion-original-data-bin=1.4.1+gog2.1.0.2
-	replaces = maniac-mansion-original-data-bin=1.4.1+gog2.1.0.2
-
-pkgname = maniac-mansion
-	pkgdesc = Standalone ScummVM based launcher script for the original game 'Maniac Mansion'.
-	arch = any
-	license = GPL-3.0-or-later
-	depends = maniac-mansion-data
-	depends = scummvm
-	depends = sh
-	provides = maniac-mansion
-	conflicts = maniac-mension
-	conflicts = maniac-mansion-original=1.4.1+gog2.1.0.2
-	replaces = maniac-mansion-original=1.4.1+gog2.1.0.2
