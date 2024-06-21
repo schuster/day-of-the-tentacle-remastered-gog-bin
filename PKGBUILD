@@ -5,13 +5,13 @@ _gogname="day_of_the_tentacle_remastered"
 pkgbase="day-of-the-tentacle-remastered-gog-bin"
 pkgname=(
   "day-of-the-tentacle-remastered-bin"
-  "maniac-mansion-original-data-bin"
-  "maniac-mansion-original"
+  "maniac-mansion-data-bin"
+  "maniac-mansion"
 )
 _pkgver_game="1.4.1"
 _pkgver_gog="2.1.0.2"
 pkgver=1.4.1+gog2.1.0.2
-pkgrel=4
+pkgrel=5
 epoch=1
 arch=(
   'i686'
@@ -139,7 +139,6 @@ package_day-of-the-tentacle-remastered-bin() {
     "day-of-the-tentacle-remastered-gog-bin=${pkgver}"
     "day-of-the-tentacle-remastered=${pkgver}"
     "day-of-the-tentacle"
-    "maniac-mansion"
   )
   conflicts=(
     "dott"
@@ -168,18 +167,22 @@ package_day-of-the-tentacle-remastered-bin() {
   ln -svr          "${pkgdir}/usr/share/licenses/${pkgname}"/*             "${pkgdir}/usr/share/doc/dott"/
 }
 
-package_maniac-mansion-original-data-bin() {
-  pkgdesc="Data files of original 'Maniac Mansion', release 3 from 1989. To be played with ScummVM."
+package_maniac-mansion-data-bin() {
+  pkgdesc="Data files of 'Maniac Mansion', release 3 from 1989. To be played with ScummVM."
   arch=('any')
   optdepends=(
     "maniac-mansion: To run the game via '/usr/bin/maniac-mansion'."
     'scummvm: To run the game manually with ScummVM.'
   )
   provides=(
-    "maniac-mansion-data"
+    "maniac-mansion-data=v2"
+    "maniac-mansion-data=release3"
   )
   conflicts=(
     "maniac-mansion-data"
+  )
+  replaces=(
+    "maniac-mansion-original-data-bin=1.4.1+gog2.1.0.2"  # Due to package renaming.
   )
 
   install -Dvm644 -t "${pkgdir}/usr/lib/maniac-mansion" "${srcdir}/maniac-mansion/maniac"/*
@@ -187,7 +190,7 @@ package_maniac-mansion-original-data-bin() {
   install -Dvm644  "${srcdir}/license-note-proprietary.txt"  "${pkgdir}/usr/share/licenses/${pkgname}/license-note-proprietary.txt"
 }
 
-package_maniac-mansion-original() {
+package_maniac-mansion() {
   pkgdesc="Standalone ScummVM based launcher script for the original game 'Maniac Mansion'."
   arch=('any')
   license=("GPL-3.0-or-later")
@@ -201,6 +204,9 @@ package_maniac-mansion-original() {
   )
   conflicts=(
     "maniac-mension"
+  )
+  replaces=(
+    "maniac-mansion-original=1.4.1+gog2.1.0.2"  # Due to package renaming.
   )
 
   install -Dvm755 "${srcdir}/maniac-mansion.sh"  "${pkgdir}/usr/bin/maniac-mansion"
