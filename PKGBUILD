@@ -11,7 +11,7 @@ pkgname=(
 _pkgver_game="1.4.1"
 _pkgver_gog="2.1.0.2"
 pkgver=1.4.1+gog2.1.0.2
-pkgrel=5
+pkgrel=6
 epoch=1
 arch=(
   'i686'
@@ -180,6 +180,7 @@ package_maniac-mansion-data-bin() {
   )
   conflicts=(
     "maniac-mansion-data"
+    "maniac-mansion-original-data-bin=1.4.1+gog2.1.0.2"  # Due to package renaming.
   )
   replaces=(
     "maniac-mansion-original-data-bin=1.4.1+gog2.1.0.2"  # Due to package renaming.
@@ -204,6 +205,7 @@ package_maniac-mansion() {
   )
   conflicts=(
     "maniac-mension"
+    "maniac-mansion-original=1.4.1+gog2.1.0.2"  # Due to package renaming.
   )
   replaces=(
     "maniac-mansion-original=1.4.1+gog2.1.0.2"  # Due to package renaming.
